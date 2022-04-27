@@ -1,5 +1,5 @@
 ## cleanmpg
-A script that removes tags from .mpg files.
+A script that removes tags from .mp4 files.
 - Requires ffmpeg
 
 ## delfiles
