@@ -5,7 +5,7 @@
 
 -y: Don't ask if you want to proceed.
 
-## delfiles v1 will DELETE all files and folders named in the list below in the current directory and every sub directory:
+## delfiles will DELETE all files and folders named in the list below in the current directory and every sub directory:
 
 - albumart*.jpg
 - folder.jpg
