@@ -20,7 +20,7 @@ banner()
 {
   echo -e "\033[31m\e[1mdelfiles Made by Morten Freberg - LastNetwork.Net\e[21m\033[0m
 This script comes with ABSOLUTELY NO WARRANTY.
-This is free software, and you are welcoem to redistribute it under the GNU GPL v3.0 license.
+This is free software, and you are welcome to redistribute it under the GNU GPL v3.0 license.
   "
 }
 start_clean()
@@ -87,8 +87,7 @@ thumbs.db
 desktop.ini
 thumbs_db
 system volume information
-recycler
-    --"
+recycler"
     exit 1
   ;;
   -y)
