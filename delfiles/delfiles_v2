@@ -1,0 +1,71 @@
+#!/bin/bash
+#
+# delfiles deletes temp files and folders in the current folder.
+# Copyright (C) 2023 Morten Freberg - LastNetwork.Net
+# Copyright (C) 2023 ChatGPT - chat.openai.com (Some of the code)
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+banner()
+{
+  echo -e "\033[31m\e[1mdelfiles Made by Morten Freberg - LastNetwork.Net\e[21m\033[0m
+This script comes with ABSOLUTELY NO WARRANTY.
+This is free software, and you are welcome to redistribute it under the GNU GPL v3.0 license.
+  "
+}
+
+start_clean()
+{
+  count=$(find . \( -iname 'albumart*.jpg' -o -iname 'folder.jpg' -o -iname 'thumbs.db' -o -iname 'desktop.ini' -o -iname '*.lnk' -o -iname 'system volume information' -o -iname 'recycler' -o -iname '*ds_store*' \) -print | wc -l)
+  find . \( -iname 'albumart*.jpg' -o -iname 'folder.jpg' -o -iname 'thumbs.db' -o -iname 'desktop.ini' -o -iname '*.lnk' -o -iname 'system volume information' -o -iname 'recycler' -o -iname '*ds_store*' \) -exec rm -rfv {} +
+  echo -e "\n\nRemoved a total of $count files and/or folders.\n"
+}
+
+case "$1" in
+  -h)
+    banner
+    echo -e "\033[31m\e[1mAvailable triggers:\033[0m
+-h: This help
+-y: Don't ask if you want to proceed.
+
+\e[1mdelfiles v1 will \e[41mDELETE\033[0m\e[49m\e[1m all files and folders named in the list below in the current directory and every sub directory:\e[0m
+
+albumart*.jpg
+folder.jpg
+thumbs.db
+desktop.ini
+thumbs_db
+system volume information
+recycler"
+    exit 1
+  ;;
+  -y)
+    banner
+    start_clean
+    exit 1
+  ;;
+  *)
+    banner
+    printf "Started with PID $$\n\n"
+    read -p "Do you really want to delete all the temp files and folders?
+(Type [y] to continue or any key to exit.)
+    " -n 1
+    if ! [[ $REPLY =~ ^[Yy]$ ]]; then
+      echo -e "\n\nExited without deleting any files or folders.\n"
+      exit 1;
+    else
+      start_clean
+    fi
+    exit 1
+esac
