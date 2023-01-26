@@ -2,7 +2,7 @@
 A script that removes tags from .mp4 files.
 - Requires ffmpeg
 
-##cleanmpg_v2
+## cleanmpg_v2
 This is version 2 of cleanmpg
 
 **Updates:**
