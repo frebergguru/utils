@@ -1,0 +1,5 @@
+#!/bin/bash
+mkdir -p cleaned
+
+# Use GNU parallel to process multiple files at the same time
+parallel -j+0 ffmpeg -threads 4 -i {} -map 0 -c:v copy -c:a copy "cleaned/{}" ::: *.mp4
