@@ -35,6 +35,17 @@ Recursively deletes a list of junk files (thumbnails, Windows/macOS
 detritus, etc.) from the current directory. See
 [`delfiles/README.md`](delfiles/README.md) for the full list and usage.
 
+## Installation
+
+To install `cleanmpg` and `cleanmpg_v2`:
+
+    ./install_cleanmpg                    # installs to /usr/local/bin (needs sudo)
+    PREFIX=~/.local ./install_cleanmpg    # user-local install, no sudo
+
+Uninstall with `./install_cleanmpg uninstall`.
+
+For `delfiles`, see [`delfiles/README.md`](delfiles/README.md).
+
 ## License
 
 GPL v3 — see individual script headers.
