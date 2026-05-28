@@ -1,19 +1,40 @@
-## cleanmpg
-A script that removes tags from .mp4 files.
-- Requires ffmpeg
+# utils
 
-## cleanmpg_v2
-This is version 2 of cleanmpg
+A small collection of personal Unix shell utilities.
 
-**Updates:**
+## Scripts
 
-- Runs multiple processes, so it can clean multiple movies at the same time.
-- Runs FFmpeg with 4 threads instead on just 1.
+### cleanmpg
 
-**Requirements:**
+Strips metadata from all `.mp4` files in the current directory, writing the
+cleaned copies to a `cleaned/` subdirectory.
 
-- GNU parallel for parallel tasking, so it can clean multiple files at the same time.
-- FFmpeg in order to clean the mp4 files for all the metadata and so on.
+**Requires:** `ffmpeg`
 
-## delfiles
-A script that deletes various files and folders.
+**Usage:**
+
+    cd /path/to/videos
+    cleanmpg
+
+### cleanmpg_v2
+
+Same as `cleanmpg`, but processes files in parallel and gives each
+`ffmpeg` invocation 4 threads — much faster on multi-core machines with
+many files.
+
+**Requires:** `ffmpeg`, GNU `parallel`
+
+**Usage:**
+
+    cd /path/to/videos
+    cleanmpg_v2
+
+### delfiles
+
+Recursively deletes a list of junk files (thumbnails, Windows/macOS
+detritus, etc.) from the current directory. See
+[`delfiles/README.md`](delfiles/README.md) for the full list and usage.
+
+## License
+
+GPL v3 — see individual script headers.
