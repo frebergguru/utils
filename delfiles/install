@@ -1,7 +1,28 @@
 #!/bin/bash
-if [ "$EUID" -ne 0 ]
-  then echo "Please run as root"
-  exit
+set -euo pipefail
+
+PREFIX="${PREFIX:-/usr/local}"
+BINDIR="$PREFIX/bin"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+
+if [ ! -w "$(dirname -- "$BINDIR")" ] && [ "$EUID" -ne 0 ]; then
+  echo "Cannot write to $BINDIR — re-run with sudo or set PREFIX=~/.local" >&2
+  exit 1
 fi
-cp delfiles /usr/local/bin
-chmod 755 /usr/local/bin/delfiles
+
+case "${1:-install}" in
+  install)
+    install -d "$BINDIR"
+    install -m 755 "$SCRIPT_DIR/delfiles" "$BINDIR/delfiles"
+    install -m 755 "$SCRIPT_DIR/delfiles_v2" "$BINDIR/delfiles_v2"
+    echo "Installed to $BINDIR"
+    ;;
+  uninstall)
+    rm -f "$BINDIR/delfiles" "$BINDIR/delfiles_v2"
+    echo "Removed from $BINDIR"
+    ;;
+  *)
+    echo "Usage: $0 [install|uninstall]" >&2
+    exit 1
+    ;;
+esac
