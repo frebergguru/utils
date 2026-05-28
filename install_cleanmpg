@@ -1,0 +1,30 @@
+#!/bin/bash
+set -euo pipefail
+
+PREFIX="${PREFIX:-/usr/local}"
+BINDIR="$PREFIX/bin"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+
+if [ ! -w "$(dirname -- "$BINDIR")" ] && [ "$EUID" -ne 0 ]; then
+  echo "Cannot write to $BINDIR — re-run with sudo or set PREFIX=~/.local" >&2
+  exit 1
+fi
+
+case "${1:-install}" in
+  install)
+    install -d "$BINDIR"
+    install -m 755 "$SCRIPT_DIR/cleanmpg" "$BINDIR/cleanmpg"
+    install -m 755 "$SCRIPT_DIR/cleanmpg_v2" "$BINDIR/cleanmpg_v2"
+    echo "Installed to $BINDIR"
+    command -v ffmpeg   >/dev/null || echo "Note: ffmpeg is required but not found on PATH"   >&2
+    command -v parallel >/dev/null || echo "Note: GNU parallel is required by cleanmpg_v2 but not found on PATH" >&2
+    ;;
+  uninstall)
+    rm -f "$BINDIR/cleanmpg" "$BINDIR/cleanmpg_v2"
+    echo "Removed from $BINDIR"
+    ;;
+  *)
+    echo "Usage: $0 [install|uninstall]" >&2
+    exit 1
+    ;;
+esac
