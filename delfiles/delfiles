@@ -26,49 +26,49 @@ This is free software, and you are welcome to redistribute it under the GNU GPL 
 start_clean()
 {
   TMPCOUNT=/tmp/$$.tmp
-  echo 0 > $TMPCOUNT
-  exec find . -iname 'albumart*.jpg' | while read line; do
+  echo 0 > "$TMPCOUNT"
+  exec find . -iname 'albumart*.jpg' | while IFS= read -r line; do
     rm -rfv "$line"
-    let count=$(cat $TMPCOUNT)+1
-    echo $count > $TMPCOUNT
+    (( count = $(cat "$TMPCOUNT") + 1 ))
+    echo "$count" > "$TMPCOUNT"
   done
-  exec find . -iname 'folder.jpg' | while read line; do
+  exec find . -iname 'folder.jpg' | while IFS= read -r line; do
     rm -rfv "$line"
-    let count=$(cat $TMPCOUNT)+1
-    echo $count > $TMPCOUNT
+    (( count = $(cat "$TMPCOUNT") + 1 ))
+    echo "$count" > "$TMPCOUNT"
   done
-  exec find . -iname 'thumbs.db' | while read line; do
+  exec find . -iname 'thumbs.db' | while IFS= read -r line; do
     rm -rfv "$line"
-    let count=$(cat $TMPCOUNT)+1
-    echo $count > $TMPCOUNT
+    (( count = $(cat "$TMPCOUNT") + 1 ))
+    echo "$count" > "$TMPCOUNT"
   done
-  exec find . -iname 'desktop.ini' | while read line; do
+  exec find . -iname 'desktop.ini' | while IFS= read -r line; do
     rm -rfv "$line"
-    let count=$(cat $TMPCOUNT)+1
-    echo $count > $TMPCOUNT
+    (( count = $(cat "$TMPCOUNT") + 1 ))
+    echo "$count" > "$TMPCOUNT"
   done
-  exec find . -iname '*.lnk' | while read line; do
+  exec find . -iname '*.lnk' | while IFS= read -r line; do
     rm -rfv "$line"
-    let count=$(cat $TMPCOUNT)+1
-    echo $count > $TMPCOUNT
+    (( count = $(cat "$TMPCOUNT") + 1 ))
+    echo "$count" > "$TMPCOUNT"
   done
-  exec find . -iname 'system volume information' | while read line; do
+  exec find . -iname 'system volume information' | while IFS= read -r line; do
     rm -rfv "$line"
-    let count=$(cat $TMPCOUNT)+1
-    echo $count > $TMPCOUNT
+    (( count = $(cat "$TMPCOUNT") + 1 ))
+    echo "$count" > "$TMPCOUNT"
   done
-  exec find . -iname 'recycler' | while read line; do
+  exec find . -iname 'recycler' | while IFS= read -r line; do
     rm -rfv "$line"
-    let count=$(cat $TMPCOUNT)+1
-    echo $count > $TMPCOUNT
+    (( count = $(cat "$TMPCOUNT") + 1 ))
+    echo "$count" > "$TMPCOUNT"
   done
-  exec find . -iname '*ds_store*' | while read line; do
+  exec find . -iname '*ds_store*' | while IFS= read -r line; do
     rm -rfv "$line"
-    let count=$(cat $TMPCOUNT)+1
-    echo $count > $TMPCOUNT
+    (( count = $(cat "$TMPCOUNT") + 1 ))
+    echo "$count" > "$TMPCOUNT"
   done
-  count=$(cat $TMPCOUNT)
-  unlink $TMPCOUNT
+  count=$(cat "$TMPCOUNT")
+  unlink "$TMPCOUNT"
   echo -e "\n\nRemoved a total of $count files and/or folders.\n"
 }
 
@@ -97,8 +97,8 @@ recycler"
   ;;
   *)
     banner
-    printf "Started with PID $$\n\n"
-    read -p "Do you really want to delete all the temp files and folders?
+    printf 'Started with PID %s\n\n' "$$"
+    read -r -p "Do you really want to delete all the temp files and folders?
 (Type [y] to continue or any key to exit.)
     " -n 1
     if ! [[ $REPLY =~ ^[Yy]$ ]]; then
