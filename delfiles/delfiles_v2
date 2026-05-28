@@ -57,8 +57,8 @@ recycler"
   ;;
   *)
     banner
-    printf "Started with PID $$\n\n"
-    read -p "Do you really want to delete all the temp files and folders?
+    printf 'Started with PID %s\n\n' "$$"
+    read -r -p "Do you really want to delete all the temp files and folders?
 (Type [y] to continue or any key to exit.)
     " -n 1
     if ! [[ $REPLY =~ ^[Yy]$ ]]; then
